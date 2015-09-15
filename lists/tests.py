@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from lists.views import home_page
-from lists.models import Item
+from lists.models import Item,Comment
 
 class HomePageTest(TestCase):
 
@@ -52,6 +52,16 @@ class HomePageTest(TestCase):
 
 		self.assertIn('itemey 1', response.content.decode())
 		self.assertIn('itemey 2', response.content.decode())
+
+	def test_home_page_can_save_comment(self):
+		request = HttpRequest()
+		request.method = 'POST'
+		request.POST['comment_text'] = 'A new comment'
+
+		response = home_page(request)
+		self.assertEqual(Comment.objects.count(), 1)
+		new_comment = Comment.objects.first()
+		self.assertEqual(new_comment.text, 'A new comment')
 
 class ItemModelTest(TestCase):
 
