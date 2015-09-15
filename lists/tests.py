@@ -53,15 +53,22 @@ class HomePageTest(TestCase):
 		self.assertIn('itemey 1', response.content.decode())
 		self.assertIn('itemey 2', response.content.decode())
 
-	def test_home_page_can_save_comment(self):
+	def test_home_page_automatic_comment_when_to_do_list_is_empty(self):
 		request = HttpRequest()
-		request.method = 'POST'
-		request.POST['comment_text'] = 'A new comment'
-
 		response = home_page(request)
-		self.assertEqual(Comment.objects.count(), 1)
-		new_comment = Comment.objects.first()
-		self.assertEqual(new_comment.text, 'A new comment')
+		self.assertEqual(Item.objects.count(), 0)
+
+	def test_automatic_comment_when_to_do_list_is_less_than_five(self):
+		Item.objects.create(text='itemey 3')
+		Item.objects.create(text='itemey 4')
+		Item.objects.create(text='itemey 5')
+
+		request = HttpRequest()
+		response = home_page(request)
+
+		self.assertEqual(Item.objects.count(), 3)
+		
+		
 
 class ItemModelTest(TestCase):
 
