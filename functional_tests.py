@@ -50,11 +50,28 @@ class NewVisitorTest(unittest.TestCase): #1
 		# Edith wonders whether the site will remember her lists. Then she sees
 		# that the site has generated a unique URL for her -- there is some
 		# explanatory text to that effects.
-		self.fail('Finish the test!')
+#		self.fail('Finish the test!')
 
 		# She visits that URL - her to-do lists is still there.
 
 		# Satisfied, she goes back to sleep
+
+	def test_can_save_comment_and_retrieve_it_later(self):
+		# After sleep she goes back to the site and found a little box where she can type a comment
+		self.browser.get('http://localhost:8000')
+
+		commentbox = self.browser.find_element_by_id('id_comment_box')
+		self.assertEqual(
+			commentbox.get_attribute('placeholder'), 'Enter your comment here'
+		)
+		# She types "The instruction to make the fly is on internet"
+		commentbox.send_keys('The instruction to make the fly is on internet')
+
+		# She hits enter, the page update and the comment is showed under the text box
+		commentbox.sendkeys(Keys.ENTER)
+		table_of_comments = self.browser.find_element_by_id('id_comments_table')
+		rows_of_table = table.find_elements_by_tag_name('tr')
+		self.assertIn('The instruction to make fly is on internet', [row.text for row in rows_of_table])
 
 if __name__ == '__main__': #7
 	unittest.main(warnings='ignore') #8
