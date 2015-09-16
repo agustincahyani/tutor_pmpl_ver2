@@ -57,6 +57,7 @@ class HomePageTest(TestCase):
 		request = HttpRequest()
 		response = home_page(request)
 		self.assertEqual(Item.objects.count(), 0)
+		self.assertIn('yey, waktunya berlibur', response.content.decode())
 
 	def test_automatic_comment_when_to_do_list_is_less_than_five(self):
 		Item.objects.create(text='itemey 3')
@@ -67,8 +68,21 @@ class HomePageTest(TestCase):
 		response = home_page(request)
 
 		self.assertEqual(Item.objects.count(), 3)
-		
-		
+		self.assertIn('sibuk tapi santai', response.content.decode())
+
+	def test_automatic_comment_when_to_do_list_is_more_or_equal_than_five(self):
+		Item.objects.create(text='itemey 6')
+		Item.objects.create(text='itemey 7')
+		Item.objects.create(text='itemey 8')
+		Item.objects.create(text='itemey 9')
+		Item.objects.create(text='itemey 10')
+
+		request = HttpRequest()
+		response = home_page(request)
+
+		self.assertEqual(Item.objects.count(), 5)
+		self.assertIn('oh tidak', response.content.decode())
+
 
 class ItemModelTest(TestCase):
 
