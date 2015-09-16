@@ -5,16 +5,17 @@ from lists.models import Item,Comment
 # Create your views here.
 def home_page(request):
 	if request.method == 'POST':
-		the_item = request.POST.get('item_text', '')
-		the_comment = request.POST.get('comment_text', '')
-		if the_item:
-			Item.objects.create(text=the_item)
-
-		if the_comment:
-			Comment.objects.create(text=the_comment)
-
+		Item.objects.create(text=request.POST['item_text'])
 		return redirect('/')
 
 	items = Item.objects.all()
-	comments = Comment.objects.all()
-	return render(request, 'home.html', {'items': items, 'comments': comments})
+	item_counter = items.count()
+	the_comment = ""
+	if item_counter == 0:
+		the_comment = 'yey, waktunya berlibur'
+	elif item_counter < 5:
+		the_comment = 'sibuk tapi santai'
+	else:
+		the_comment = 'oh tidak'
+
+	return render(request, 'home.html', {'items': items, 'comment': the_comment})

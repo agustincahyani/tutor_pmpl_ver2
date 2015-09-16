@@ -15,7 +15,9 @@ class HomePageTest(TestCase):
 		request = HttpRequest() #1
 		response = home_page(request) #2
 		expected_html = render_to_string('home.html')
-		self.assertEqual(response.content.decode(), expected_html)
+		response_decoded = response.content.decode()
+		response_decoded = response_decoded.replace("yey, waktunya berlibur","")
+		self.assertEqual(response_decoded, expected_html)
 
 	def test_home_page_can_save_a_POST_request(self):
 		request = HttpRequest()

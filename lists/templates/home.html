@@ -8,20 +8,13 @@
 			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
 			{% csrf_token %}
 		</form>
-		<form method="POST">
-			<input name="comment_text" id='id_new_comment' placeholder="Enter your comment" />
-			{% csrf_token %}
-		</form>
+		
 		<table id="id_list_table">
 			{% for item in items %}
 				<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
 			{% endfor %}
 		</table>
 		<h1>Comments:</h1>
-		<table id='id_comment_table'>
-			{% for comment in comments %}
-				<tr><td>{{ comment.text }}</td></tr>
-			{% endfor %}
-		</table>
+		<p name="comment_text" id="id_comment">{{ comment }}</p>
 	</body>
 </html>
