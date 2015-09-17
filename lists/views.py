@@ -6,7 +6,7 @@ from lists.models import Item,Comment
 def home_page(request):
 	if request.method == 'POST':
 		Item.objects.create(text=request.POST['item_text'])
-		return redirect('/')
+		return redirect('/lists/the-only-list-in-the-world/')
 
 	items = Item.objects.all()
 	item_counter = items.count()
@@ -19,3 +19,7 @@ def home_page(request):
 		the_comment = 'oh tidak'
 
 	return render(request, 'home.html', {'items': items, 'comment': the_comment})
+
+def view_list(request):
+	items = Item.objects.all()
+	return render(request, 'home.html', {'items': items})
