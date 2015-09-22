@@ -12,10 +12,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name='List',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('text', models.TextField(default='')),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
             ],
+        ),
+        migrations.AddField(
+            model_name='item',
+            name='list',
+            field=models.ForeignKey(to='lists.List', default=None),
         ),
     ]
