@@ -18,11 +18,6 @@ class HomePageTest(TestCase):
 		response_decoded = response.content.decode()
 		self.assertEqual(response_decoded, expected_html)
 	
-	def test_home_page_only_saves_items_when_necessary(self):
-		request = HttpRequest()
-		home_page(request)
-		self.assertEqual(Item.objects.count(), 0)
-
 	def test_home_page_automatic_comment_when_to_do_list_is_empty(self):
 		request = HttpRequest()
 		response = home_page(request)
