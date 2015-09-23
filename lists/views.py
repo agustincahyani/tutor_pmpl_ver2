@@ -4,8 +4,21 @@ from lists.models import Item, List
 
 # Create your views here.
 def home_page(request):
-	items = Item.objects.all()
-	item_counter = items.count()
+	item_counter = 0
+	the_comment = ""
+	if item_counter == 0:
+		the_comment = 'yey, waktunya berlibur'
+	elif item_counter < 5:
+		the_comment = 'sibuk tapi santai'
+	else:
+		the_comment = 'oh tidak'
+	return render(request, 'home.html', {'comment': the_comment},)
+
+def view_list(request, list_id):
+	list_ = List.objects.get(id=list_id)
+	item_counter = Item.objects.filter(list=list_).count()
+	print(item_counter)
+
 	the_comment = ""
 	if item_counter == 0:
 		the_comment = 'yey, waktunya berlibur'
@@ -14,11 +27,7 @@ def home_page(request):
 	else:
 		the_comment = 'oh tidak'
 
-	return render(request, 'home.html', {'comment': the_comment},)
-
-def view_list(request, list_id):
-	list_ = List.objects.get(id=list_id)
-	return render(request, 'list.html', {'list': list_})
+	return render(request, 'list.html', {'list': list_, 'comment': the_comment})
 
 def new_list(request):
 	list_ = List.objects.create()
