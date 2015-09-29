@@ -1,3 +1,12 @@
-#id_new_item {
+#id_new_item { 
 	margin-top: 2ex;
+}
+
+#id_div_table {
+	width: 25%;
+}
+
+#id_div_comment {
+	width: 25%;
+	text-align: center;
 }

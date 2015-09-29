@@ -1,0 +1,14 @@
+#id_comment {
+	color: red;
+	font-size: 45px;
+	text-align: left;
+}
+
+#id_list_table {
+	width: 500px;
+	font-size: 60px;
+}
+
+#id_new_item {
+	width: 100px;
+}
