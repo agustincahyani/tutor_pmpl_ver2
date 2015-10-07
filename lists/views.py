@@ -17,7 +17,6 @@ def home_page(request):
 def view_list(request, list_id):
 	list_ = List.objects.get(id=list_id)
 	item_counter = Item.objects.filter(list=list_).count()
-	print(item_counter)
 
 	the_comment = ""
 	if item_counter == 0:

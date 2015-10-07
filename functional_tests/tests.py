@@ -100,5 +100,12 @@ class NewVisitorTest(StaticLiveServerTestCase): #1
 			512,
 			delta=5
 		)
+
+		tablebox = self.browser.find_element_by_id('id_list_table')
+		self.assertAlmostEqual(
+			tablebox.location['x'] + tablebox.size['width'] / 2,
+			755,
+			delta=5
+		)
 if __name__ == '__main__': #7
 	unittest.main(warnings='ignore') #8
