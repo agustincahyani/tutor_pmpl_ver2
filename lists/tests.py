@@ -18,39 +18,6 @@ class HomePageTest(TestCase):
 		response_decoded = response.content.decode()
 		self.assertEqual(response_decoded, expected_html)
 	
-	def test_home_page_automatic_comment_when_to_do_list_is_empty(self):
-		request = HttpRequest()
-		response = home_page(request)
-		self.assertEqual(Item.objects.count(), 0)
-		self.assertIn('yey, waktunya berlibur', response.content.decode())
-
-	def test_automatic_comment_when_to_do_list_is_less_than_five(self):
-		list_ = List.objects.create()
-		Item.objects.create(text='itemey 3', list=list_)
-		Item.objects.create(text='itemey 4', list=list_)
-		Item.objects.create(text='itemey 5', list=list_)
-
-		request = HttpRequest()
-		response = home_page(request)
-
-		self.assertEqual(Item.objects.count(), 3)
-		self.assertIn('sibuk tapi santai', response.content.decode())
-
-	def test_automatic_comment_when_to_do_list_is_more_or_equal_than_five(self):
-		list_ = List.objects.create()
-		Item.objects.create(text='itemey 6', list=list_)
-		Item.objects.create(text='itemey 7', list=list_)
-		Item.objects.create(text='itemey 8', list=list_)
-		Item.objects.create(text='itemey 9', list=list_)
-		Item.objects.create(text='itemey 10', list=list_)
-
-		request = HttpRequest()
-		response = home_page(request)
-
-		self.assertEqual(Item.objects.count(), 5)
-		self.assertIn('oh tidak', response.content.decode())
-
-
 class ListAndItemModelsTest(TestCase):
 
 	def test_saving_and_retrieving_items(self):
@@ -107,6 +74,37 @@ class ListViewTest(TestCase):
 		correct_list = List.objects.create()
 		response = self.client.get('/lists/%d/' % (correct_list.id,))
 		self.assertEqual(response.context['list'], correct_list)
+
+	def test_home_page_automatic_comment_when_to_do_list_is_empty(self):
+		request = HttpRequest()
+		response = home_page(request)
+		self.assertEqual(Item.objects.count(), 0)
+		self.assertIn('yey, waktunya berlibur', response.content.decode())
+
+	def test_automatic_comment_when_to_do_list_is_less_than_five(self):
+		list_ = List.objects.create()
+		Item.objects.create(text='itemey 3', list=list_)
+		Item.objects.create(text='itemey 4', list=list_)
+		Item.objects.create(text='itemey 5', list=list_)
+
+		response = self.client.get('/lists/%d/' % (list_.id,))
+
+		self.assertEqual(Item.objects.count(), 3)
+		self.assertIn('sibuk tapi santai', response.content.decode())
+
+	def test_automatic_comment_when_to_do_list_is_more_or_equal_than_five(self):
+		list_ = List.objects.create()
+		Item.objects.create(text='itemey 6', list=list_)
+		Item.objects.create(text='itemey 7', list=list_)
+		Item.objects.create(text='itemey 8', list=list_)
+		Item.objects.create(text='itemey 9', list=list_)
+		Item.objects.create(text='itemey 10', list=list_)
+
+		response = self.client.get('/lists/%d/' % (list_.id,))
+
+		self.assertEqual(Item.objects.count(), 5)
+		self.assertIn('oh tidak', response.content.decode())
+
 
 
 class NewListTest(TestCase):
