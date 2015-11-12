@@ -5,3 +5,8 @@ body {
 #id_new_item { 
 	margin-top: 2ex;
 }
+
+.has-error {
+	text-align: center;
+	color: red;
+}
