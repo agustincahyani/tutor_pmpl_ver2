@@ -5,8 +5,8 @@ from django.db import models, migrations
 
 def find_dupes(apps, schema_editor):
 	List = apps.get_model("lists", "List")
-	for list1_ in List.objects.all():
-		items = list1_.item_set.all()
+	for list_ in List.objects.all():
+		items = list_.item_set.all()
 		texts = set()
 		for ix, item in enumerate(items):
 			if item.text in texts:
