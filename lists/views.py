@@ -11,8 +11,10 @@ def home_page(request):
 		the_comment = 'yey, waktunya berlibur'
 	elif item_counter < 5:
 		the_comment = 'sibuk tapi santai'
-	else:
+	elif item_counter >= 5 && item_counter < 9:
 		the_comment = 'oh tidak'
+	else item_counter >= 9
+		the_comment = 'Semangat, kerja keras!'
 	return render(request, 'home.html', {'comment': the_comment},)
 
 def view_list(request, list_id):
