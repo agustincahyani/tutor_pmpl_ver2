@@ -11,4 +11,5 @@ Scenario Outline: opening page
 		|	numberofitems	| comment 					|
 		|	0				| "yey, waktunya berlibur" 	|
 		|	3				| "sibuk tapi santai"		|
-		|	5				| "oh tidak"				|
+		|	5				| "Semangat, kerja keras!"	|
+		|	9				| "oh tidak"				|
