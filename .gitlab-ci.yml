@@ -5,9 +5,7 @@ environment:
 
 test:
  script:
- - Xvfb :99 &
- - export DISPLAY=:99
- - python3 manage.py test bdd
+ - xvfb-run python3 manage.py test bdd
  - echo "instruksi untuk test UI"
  only:
  - master
