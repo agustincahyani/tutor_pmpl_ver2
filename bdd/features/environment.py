@@ -1,5 +1,6 @@
 from behave import *
 from selenium import webdriver
+from splinter.browser import Browser
 from django.core import management
 
 def before_all(context):
